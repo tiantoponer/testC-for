@@ -1,0 +1,625 @@
+#include<iostream>
+using namespace ::std;
+
+
+int global = 19;
+#include<string>
+#include<cctype>
+ namespace tt01
+{
+	 void test1()
+	 {
+		 int n = 0, m = 0;
+		 while (cin >> n)//ctrl+z -- 退出
+			 m += n;
+		 cout << m << endl;
+	 }
+	 void test2()
+	 {
+		 signed char a = 97;
+		 cout << a << endl;
+		 unsigned u = 10, u2 = 42;
+		 cout << u2 - u << endl;
+		 cout << u - u2 << endl;
+		 int i = 10, i2 = 42;
+		 cout << i2 - i << endl;
+		 cout << i - i2 << endl;
+		 cout << i - u << endl;
+		 cout << u - i << endl;
+		 unsigned num = -1;
+		 cout << num << endl;
+	 }
+	 void test3()
+	 {
+		 int insight = 0;
+		 cout << global << " " << insight << endl;
+		 int global = 0;
+		 cout << global << " " << insight << endl;
+		 cout << ::global << " " << insight << endl;
+		 insight = global;
+		 cout << ::global << " " << insight << endl;
+		 insight = ::global;
+		 cout << ::global << " " << insight << endl;
+		 ::global = 20;
+		 insight = global;
+
+		 cout << ::global << " " << insight << endl;
+		 cout << global << " " << insight << endl;
+	 }
+	 void test4()
+	 {
+		 int i = 10;
+		 int& ip = i;
+		 i = 20; ip = 30;
+		 cout << i << " " << ip << endl;
+		 double pi = 3.14;
+		 const int& a = pi;
+		 // == const int tmp=pi;
+		 //   const int&a =tmp;
+		 cout << a << endl;
+		 //int& r = 0;
+		 int* const pw = &i;
+		 const int& r = 0;
+		 const int *const p = &i;
+		 using int_long = long long;
+	 }
+	 int add(int x, int y)
+	 {
+		 return x + y;
+	 }
+	 void test5()
+	 {
+		 decltype(add(1,2))x = 1;
+		 cout << x << endl;
+		 const int y = 10;
+		 decltype(y)z = 20;
+		 //z = 10;
+		 cout << z << endl;
+		 int i = 42, * p = &i, & r = i;
+		 decltype(r)b = x;//得到的是引用
+		 decltype(r + 0)b1 = 0;//得到的是int
+		 decltype(*p)c = x;//(*p)得到的是引用
+		 //int的指针 *解引用得到的是一个 object 是int& 而不是int 
+		 int tian = 0;
+		 decltype((tian))t = i;//双层括号的都是引用
+	 }
+
+	 void test6()
+	 {
+		 string s;
+		 cin >> s;
+		 cout << s << endl;
+	 }
+	 void stringtest1()
+	 {
+		 /*string s;
+		 while (cin >> s)
+		 {
+			 cout << s << " ";
+		 }*/
+
+		 //-------------------getline
+		 string word;
+		 while (getline(cin, word))// getline 遇到 换行 就  停止输入
+		 {
+			 cout << word << endl;
+		 }
+	 }
+	 void stringtest2()
+	 {
+		 string s("hello world");
+		 int n = -1;
+		 if (s.size() < n)//.size()返回的是无符号数  比较是 有符号的int 会转换 为无符号
+		 {
+			 cout << s << endl;
+		 }
+		 auto len = s.size();
+		 if (len < n)
+		 {
+			 cout << s <<"2" << endl;
+		 }
+	 }
+	 void stringtest3()
+	 {
+		 string s("hello world!!!!");
+		 string s1 = s;
+		 string s2 = s;
+		 decltype(s.size())punct_cnt = 0;
+		 for (auto c : s)
+			 if (ispunct(c))//计算符号的个数
+				 ++punct_cnt;
+		 cout << punct_cnt << endl;
+
+
+		 for (auto& d : s)
+			 d = toupper(d);// 把小写字母 换成大写字母
+		 cout << s << endl;
+		 //string s1 = s;
+		 if (!s1.empty())
+			 s1[0] = toupper(s1[0]);
+		 cout << s1 << endl;
+
+		 for (decltype(s2.size())index = 0;
+			 index != s2.size() && !isspace(s2[index]); index++)
+			 s2[index] = toupper(s2[index]);
+		 cout << s2 << endl;
+	 }
+	 void stringtest4()
+	 {
+		 const string s("0123456789ABCDEF");
+		 string result;
+		 decltype(s.size())n = 0;
+		 while (cin >> n)
+			 if (n < s.size())
+				 result += s[n];
+		 cout << result << endl;
+	 }
+	 void stringtest5()
+	 {
+		 string s;
+		 cout << s[0] << endl;
+	 }
+}
+
+#include<vector>
+#include<string>
+namespace tt02
+{
+	void test01()
+	{
+		vector<string> v{ 10 };
+		vector<string>text;
+		string word;
+		while (cin >> word)
+		{
+			text.push_back(word);
+		}
+		for (auto it=text.begin();it!=text.end();it++)
+		{
+			cout << *it << endl;
+		}
+	}
+	void vectext1()
+	{
+		vector<int> v{ 1,2,3,4,5,6,7,8 };
+		for (auto& i : v)
+		{
+			i *= i;
+		}
+		for (auto i : v)
+		{
+			cout << i << endl;
+		}
+		vector<string>v1{ "hello","my","world" };
+		cout << v1[0].size() << endl;
+		++v[0];
+		cout << v[0] << endl;
+	}
+	void vectext2()
+	{
+		vector<string>v;
+		string word;
+		while (cin >> word)
+		{
+			for (auto& s : word)
+			{
+				s = toupper(s);
+			}
+			v.push_back(word);
+			//cout << *(v.end()+1) << endl;
+		}
+		for (auto it = v.begin(); it < v.end(); it++)
+		{
+			cout << *it << endl;
+		}
+	}
+	void vectext3()
+	{
+		vector<int>v;
+		int i = 0;
+		while (cin >> i)
+		{
+			v.push_back(i);
+		}
+		for (int i = 0; i < (v.size())/2; i++)
+		{
+			cout << v[i] << " " << v[v.size() - 1 - i] << endl;
+		}
+	}
+	void test2()
+	{
+		vector<string>v{ "hello","world" };
+		auto it = v.begin();
+		if (!it->empty())
+		{
+			cout << it->size();
+		}
+	}
+	void test3()
+	{
+		int i;
+		const int* pi = &i;
+		const int& a = i;
+		
+		double k;
+		void* vp = &k;
+		double* dou = static_cast<double*>(vp);
+	}
+}
+namespace tt03
+{
+	void test1()
+	{
+		vector<int>v;
+		v = { 0,1,2,3,4,5,6,7,8,9 };
+		
+		v = { 0,0, 0, 0 ,0 };
+
+		for (auto it : v)
+		{
+			cout << it << endl;
+		}
+		for (auto it = v.begin(); it != v.end(); ++it)
+		{
+			cout << *it << endl;
+		}
+		auto it = v.begin();
+		cout<<++*it<<endl;
+	}
+	void initlist(const initializer_list<vector<int>>i)
+	{
+		for (auto beg = i.begin(); beg != i.end(); beg++)
+		{
+			cout << beg << endl;
+		}
+	}
+	void test2()
+	{
+		vector<int>v{ 1,2,3,4,5,6,7,8,9, };
+		//initlist(v);
+	}
+	constexpr int fun_sz()
+	{
+		return 1;
+	}
+	void test3()
+	{
+		const int a = 10;
+		const int i = fun_sz();
+	}
+	class Book
+	{
+	public:
+		Book() = default;
+		Book(int num,string name):Book_Num(num),Book_Name(name){}
+
+	private:
+		int Book_Num;
+		string Book_Name;
+	};
+	void test5()
+	{
+		Book book();
+	}
+	class Screen
+	{
+	public:
+		Screen(size_t a):access_ctr(a){}
+		void Print()
+		{
+			cout << access_ctr << endl;
+		}
+		void some_member()const;
+	private:
+		mutable size_t access_ctr;
+
+	};
+	void Screen::some_member()const
+	{
+		++access_ctr;
+	}
+	void test4()
+	{
+		Screen s1(10);
+		s1.some_member();
+		s1.Print();
+	}
+	//Lambdas没有构造函数 
+	// 如果要传 容器时 要用dectltype()来推导类型
+	//
+	void test6()
+	{
+		int id = 10;
+		auto f = [id]()mutable {
+			cout << "id:" << id << endl;
+			++id;
+		};
+		id = 42;
+		f();//10
+		f();//11
+		f();//12
+		f();
+		cout << id << endl;
+	}
+	class Functor
+	{
+	private:
+		int id;
+	public:
+		void operator()()
+		{
+			cout << "id:" << id << endl;
+			id++;
+		}
+	};
+
+	void test7()
+	{
+		int id = 0;
+		auto f = [&id](int paly) {
+			cout << "id:" << id << endl;
+			id++;
+			paly++;
+		};
+		id = 42;
+		f(7);
+		f(7);
+		f(7);
+		f(7);
+		cout << id << endl;
+
+	}
+	void test6_sma()
+	{
+		Functor f;
+		f();
+		f();
+		f();
+		f();
+	}
+
+	class Person
+	{
+	public:
+		Person(int a,string n):Age(a),Name(n){}
+		bool operator>(Person p1)
+		{
+			return this->Age > p1.Age;
+		}
+	private:
+		int Age;
+		string Name;
+	};
+	void Test1()
+	{
+		auto cmp = [](const Person& p1, const Person& p2)
+		{
+
+		};
+	}
+	void Test2()
+	{
+		vector<int>v1{ 5,28,50,3,0,4,1,0,55,44,11,587,475 };
+		int x = 10;
+		int y = 100;
+		v1.erase(remove_if(v1.begin(),
+			v1.end(),
+			[x, y](int n) {return x < n && n < y; }
+		), v1.end());
+		for (auto i : v1)
+		{
+			cout << i << " ";
+		}
+	}
+}
+
+#include<bitset>
+#include<algorithm>
+#include<cstdio>
+#include<cmath>
+
+namespace tt04
+{
+	void printX()
+	{
+
+	}
+	//特化
+	template<typename T, typename... Types>
+	void printX(const T& firstArg, const Types&...args)
+	{
+		cout << firstArg << endl;
+		printX(args...);
+	}
+	//泛化的 有上面的就不会被调用
+	template <typename...Types>
+	void PrintX(const Types&...args)
+	{
+		cout << args << endl;
+		cout << 2 << endl;
+		printX(args...);
+	}
+
+	void testvariadicTempaltes()
+	{
+		printX(bitset<32>(120), "hello", "world", 520, "I love the ", "petty girl");
+	}
+
+	//模拟实现C的printf
+	void printf(const char* s)
+	{
+		while (*s)
+		{
+			if (*s == '%' && *(++s) != '%')
+				throw runtime_error("invalid format string:missing arguments");
+			cout << *s++;
+		}
+	}
+	template<typename T, typename...Args>
+	void printf(const char* s, T value, Args...args)
+	{
+		while (*s) {
+			if (*s == '%' && *(++s) != '%')
+			{
+				cout << value;
+				printf(++s, args...);
+				return;
+			}
+			cout << *s++;
+		}
+		throw logic_error("extra argument provided to printf");
+	}
+
+	void TestPrintf()
+	{
+		printf("he is %d years old %s %f", 100, "Hello my World", 3.25);
+	}
+
+	// 类 重载<<
+	class Person
+	{
+	public:
+		Person(int a, int w) :age(a), weight(w) {}
+		int operator<<(iostream& io)
+		{
+			return this->age;
+		}
+	private:
+		int age;
+		int weight;
+	};
+
+
+	// max 
+	template<typename _ForwardIterator, typename _Compare>
+	_ForwardIterator _max_element(_ForwardIterator _first, _ForwardIterator _last, _Compare _comp)
+	{
+		if (_first == _last)return _first;
+		_ForwardIterator _result = _first;
+		while (++_first != _last)
+			if (_comp(_result, _first))
+				_result = _first;
+		return _result;
+
+	}
+	struct _Iter_less_iter
+	{
+		template<typename _Iterator1, typename _Iterator2>
+		bool
+			operator()(_Iterator1 _it1, _Iterator2 _it2)const
+		{
+			return *_it1 < *_it2;
+		}
+	};
+	inline _Iter_less_iter _iter_less_iter()
+	{
+		return _iter_less_iter();
+	}
+
+	template<typename _ForwardIterator>
+	inline _ForwardIterator max_element
+	(_ForwardIterator _first, _ForwardIterator _last)
+	{
+		return _max_element(_first, _last, _iter_less_iter());
+	}
+
+	template<typename _Tp>
+	inline _Tp max(initializer_list<_Tp> _1)
+	{
+		return *max_element(_1.begin(), _1.end());
+	}
+
+	void testmax()
+	{
+		cout << max({ 57,48,60,100,20,10,18 }) << endl;
+	}
+
+	/* int maximum(int n)
+	{
+		return n;
+	}
+	template<typename...Args>
+	int maximum(int n, Args...args)
+	{
+			return max(n, maximum(args...));
+     }
+
+	void testmaximum()
+	{
+		cout << maximum(10, 20, 3, 0, 4, 85, 40) << endl;
+	} */
+
+
+	template<typename... Values>class tuple;
+	template<>class tuple<>{};
+
+	template<typename Head,typename... Tail>
+	class tuple<Head, Tail...>:private tuple<Tail...>
+	{
+		typedef tuple<Tail...>inherited;
+	protected:
+		Head m_head;
+	public:
+		tuple(){}
+		tuple(Head v,Tail... vtail):m_head(v),inherited(vtail...){}
+
+		// err typename Head::type head() { return m_head; } 第一版本 不行
+		//auto head() -> decltype(m_head) { return m_head; } 第二版本
+		Head head() { return m_head; }
+		inherited& tail() { return *this; }
+	/*protected:
+		Head m_head;*/
+	};
+	void Test1()
+	{
+		tuple<int, float, string> t(14, 6.3, "nice");
+		cout << t.head() << endl;
+		cout << t.tail().head() << endl;
+	}
+
+	void Test2()
+	{
+		string s1{ "Hello 2 break sister" };
+		string s2{ move(s1) };//使用 move是 浅拷贝 使用完后 就 不应该 在使用
+		cout << s1 << endl;
+	}
+	void Test3()
+	{
+		int* p4 = allocator<int>().allocate(3, (int*)0);
+		allocator<int>().deallocate(p4, 3);
+	}
+
+
+}
+int main()
+{
+	tt04::Test2();
+	//tt04::Test1();
+	//tt04::testmaximum();
+	//tt04::testmax();
+	//tt04::TestPrintf();
+	//tt04::testvariadicTempaltes();
+	//tt03::Test2();
+	//tt03::test7();
+	//tt03::test6();
+	//tt03::test6_sma();
+	//tt03::test4();
+	//tt03::test3();
+	//tt03::test1();
+	//tt02::test2();
+	//tt02::vectext3();
+	//tt02::vectext2();
+	//tt02::vectext1();
+	//tt02::test01();
+	//tt01::test1();
+	//tt01::test2();
+	//tt01::test3();
+	//tt01::test4();
+	//tt01::test6();
+	//t01::stringtest1();
+	//tt01::stringtest2();
+	//tt01::stringtest3();
+	//tt01::stringtest4();
+	//tt01::stringtest5();
+	return 0;
+}
